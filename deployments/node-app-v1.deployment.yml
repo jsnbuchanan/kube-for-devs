@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app
+  labels:
+    app: node-app
+    version: "1.0"
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: node-app
+      labels:
+        app: node-app
+        version: "1.0"
+    spec:
+      containers:
+        - name: node-app
+          image: node-app:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: node-app
