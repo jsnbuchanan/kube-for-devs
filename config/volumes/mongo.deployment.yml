@@ -7,3 +7,30 @@ provisioner: kubernetes.io/no-provisioner
 # PersistentVolumes and PersistentVolumeClaims that are created using that StorageClass will inherit the reclaim policy set here.
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv
+spec:
+  capacity:
+    storage: 1Gi
+  # volumeMode block feature gate enabled by default with 1.13+
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  # StorageClass has a reclaim policy default so it will be "inherited" by the PersistentVolume
+  # persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /tmp/data/db
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - docker-desktop
