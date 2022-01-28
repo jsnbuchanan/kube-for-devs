@@ -7,10 +7,10 @@ metadata:
 data:
   MONGODB_DBNAME: codeWithJason
   #NO - not a good idea to store a password in a ConfigMap (demo only). See the "secrets" folder for another demo of this.
-  MONGODB_PASSWORD: "kcGh(H4zz2%tk8k\c!EHH'2qweV^pmpX"
+  MONGODB_PASSWORD: kcGhH4zz2tk8kcEHH2qweVpmpX
   MONGODB_ROLE: readWrite
   #NO - not a good idea to store a password in a ConfigMap (demo only). See the "secrets" folder for another demo of this.
-  MONGODB_ROOT_PASSWORD: "kcGh(H4zz2%tk8k\c!EHH'2qweV^pmpX"
+  MONGODB_ROOT_PASSWORD: kcGhH4zz2tk8kcEHH2qweVpmpX
   MONGODB_ROOT_ROLE: root
   MONGODB_ROOT_USERNAME: dbadmin
   MONGODB_USERNAME: webrole
