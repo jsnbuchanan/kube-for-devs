@@ -1,3 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-env
+  labels:
+    app: mongo-env
+data:
+  MONGODB_DBNAME: codeWithJason
+  #NO - not a good idea to store a password in a ConfigMap (demo only). See the "secrets" folder for another demo of this.
+  MONGODB_PASSWORD: "kcGh(H4zz2%tk8k\c!EHH'2qweV^pmpX"
+  MONGODB_ROLE: readWrite
+  #NO - not a good idea to store a password in a ConfigMap (demo only). See the "secrets" folder for another demo of this.
+  MONGODB_ROOT_PASSWORD: "kcGh(H4zz2%tk8k\c!EHH'2qweV^pmpX"
+  MONGODB_ROOT_ROLE: root
+  MONGODB_ROOT_USERNAME: dbadmin
+  MONGODB_USERNAME: webrole
+
+---
+
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -133,4 +152,3 @@ spec:
         - name: mongo-volume
           persistentVolumeClaim:
             claimName: mongo-pvc
-
