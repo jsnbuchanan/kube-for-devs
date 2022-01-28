@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+# The reclaim policy applies to the persistent volumes, not the StorageClass itself.
+# PersistentVolumes and PersistentVolumeClaims that are created using that StorageClass will inherit the reclaim policy set here.
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
