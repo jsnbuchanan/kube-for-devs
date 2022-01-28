@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-alpine-volume
+  labels:
+    app: nginx-alpine-volume
+spec:
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: html
+          readOnly: true
+    - name: html-updater
+      image: alpine
+      command: ["/bin/sh", "-c"]
+      args:
+        - while true; do date >> /html/index.html;sleep 10; done
+      volumeMounts:
+        - mountPath: /html
+          name: html
+  volumes:
+    - name: html
+      emptyDir: {} # lifecycle tied to the Pod
+  restartPolicy: Always
+
+# kubectl apply -f nginx-alpine-emptyDir.pod.yml
+# kubectl port-forward nginx-alpine-volume 8087:80
