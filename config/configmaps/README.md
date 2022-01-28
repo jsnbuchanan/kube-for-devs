@@ -28,6 +28,15 @@ kubectl create configmap [config-map-name] --from-env-file=alien.properties
 
 ---
 
+#### Directly from the comman-line with --from-literal
+An example of loading variables directly from the `kubectl create` command with `--from-literal`
+
+```
+kubectl create configmap [config-map-name] --from-literal=keyName1=someValue --from-literal=anyKeyName=anyValue
+```
+
+---
+
 #### Directly in the ConfigMap.yml
 
 File `config-map.yml`:
