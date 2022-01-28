@@ -48,3 +48,89 @@ spec:
   resources:
     requests:
       storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  selector:
+    app: mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+  labels:
+    app: mongo
+spec:
+  serviceName: mongo
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          ports:
+            - containerPort: 27017
+          command:
+            - mongod
+            - "--auth"
+          resources: {}
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-volume
+          env:
+            - name: MONGODB_DBNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: MONGODB_DBNAME
+                  name: mongo-env
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: MONGODB_PASSWORD
+                  name: mongo-env
+            - name: MONGODB_ROLE
+              valueFrom:
+                configMapKeyRef:
+                  key: MONGODB_ROLE
+                  name: mongo-env
+            - name: MONGODB_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: MONGODB_ROOT_PASSWORD
+                  name: mongo-env
+            - name: MONGODB_ROOT_ROLE
+              valueFrom:
+                configMapKeyRef:
+                  key: MONGODB_ROOT_ROLE
+                  name: mongo-env
+            - name: MONGODB_ROOT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: MONGODB_ROOT_USERNAME
+                  name: mongo-env
+            - name: MONGODB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: MONGODB_USERNAME
+                  name: mongo-env
+      volumes:
+        - name: mongo-volume
+          persistentVolumeClaim:
+            claimName: mongo-pvc
+
