@@ -44,7 +44,7 @@ spec:
   # persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /tmp/data/db
+    path: /private/tmp/data/db
   nodeAffinity:
     required:
       nodeSelectorTerms:
