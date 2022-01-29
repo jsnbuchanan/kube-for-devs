@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-settings
+data:
+  enemies: aliens
+  lives: "3"
+  enemies.cheat: "true"
+  enemies.cheat.level: noGoodRotten
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-loader
+  labels:
+    app: env-loader
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: env-loader
+      labels:
+        app: env-loader
+    spec:
+      containers:
+        - name: env-loader
+          image: alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - env
+          env:
+            - name: ENEMIES
+              valueFrom:
+                configMapKeyRef:
+                  key: enemies
+                  name: app-settings
+            - name: LIVES
+              valueFrom:
+                configMapKeyRef:
+                  key: lives
+                  name: app-settings
+            - name: ENEMY_CHEAT
+              valueFrom:
+                configMapKeyRef:
+                  key: enemies.cheat
+                  name: app-settings
+            - name: ENEMY_CHEAT_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  key: enemies.cheat.level
+                  name: app-settings
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: env-loader
