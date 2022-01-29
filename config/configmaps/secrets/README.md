@@ -34,5 +34,28 @@ The following command creates and stores a tls `Secret` given a cert & key file 
 kubectl create secret tls my-tls-secret --cert=~/certs/tls.cert --key=~/certs/tls.key
 ```
 
+---
+
+### Get Secrets yaml
+To retrieve the base64 encoded Secrets yaml, use:
+```
+kubectl get secrets my-ssh-secret -o yaml
+```
+which will retrieve something like:
+```
+apiVersion: v1
+data:
+  ssh-privatekey: Ym9ndXMgcHJpdmF0ZSBrZXkK
+  ssh-publickey: Ym9ndXMgcHVibGljIGtleQo=
+kind: Secret
+metadata:
+  creationTimestamp: "2022-01-29T01:16:11Z"
+  name: my-secret-from-file
+  namespace: default
+  resourceVersion: "622179"
+  uid: 709f5731-aecf-423e-9914-33670152f1d4
+type: Opaque
+```
+
 ## Learn More
 Learn more about encrypting secrets at rest here: https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
