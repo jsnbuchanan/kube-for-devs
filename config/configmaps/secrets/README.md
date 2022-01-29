@@ -3,7 +3,11 @@
 It's important to remember:
 1. Limit access to etcd (where Secrets are stored) to only admin users
 2. Use SSL/TLS for etcd peer-to-peer communication
-3. Manifest (YAML|JSON) files only base64 encode the secret
+3. Manifest (YAML|JSON) files only base64 encode the secret 
+    - **be careful**, it's trivial to: 
+      ```
+      echo Ym9ndXMgcHVibGljIGtleQo= | base64 --decode
+      ```
 4. Pods can access Secrets, so secure which users can create Pods. Role-based access control (RBAC) can be used.
 
 ---
