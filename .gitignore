@@ -2,3 +2,5 @@
 decks
 /config/configmaps/secrets/id_rsa
 /config/configmaps/secrets/id_rsa.pub
+/config/configmaps/secrets/tls.cert
+/config/configmaps/secrets/tls.key

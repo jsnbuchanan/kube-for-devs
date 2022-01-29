@@ -8,7 +8,7 @@ It's important to remember:
 
 ---
 
-### Create Secret --from-literal
+### Create Secret generic --from-literal
 The following command creates and stores a `Secret` securely in Kubernetes.
 ```
 kubectl create secret generic my-secret --from-literal=pwd=my-passord
@@ -16,10 +16,19 @@ kubectl create secret generic my-secret --from-literal=pwd=my-passord
 
 --- 
 
-### Create Secret --from-file
+### Create Secret generic --from-file
 The following command creates and stores a `Secret` given a file in Kubernetes.
 ```
 kubectl create secret generic my-secret-from-file --from-file=ssh-privatekey=~/.ssh/id_rsa --from-file=ssh-publickey=~/.ssh/id_rsa.pub
 ```
 
+---
+
+### Create Secret tls --cert --key
+The following command creates and stores a tls `Secret` given a cert & key file in Kubernetes.
+```
+kubectl create secret tls my-tls-secret --cert=~/certs/tls.cert --key=~/certs/tls.key
+```
+
+## Learn More
 Learn more about encrypting secrets at rest here: https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
