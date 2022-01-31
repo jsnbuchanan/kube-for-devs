@@ -40,5 +40,11 @@ or
 kubectl get deployment [deployment-name] -o yaml
 ```
 
+### Watch Pods Status
+To monitor pods starting, terminating, etc, use:
+```
+kubectl get pods --watch
+```
+
 
 
