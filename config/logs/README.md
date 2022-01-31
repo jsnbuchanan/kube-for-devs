@@ -26,3 +26,19 @@ To follow a pod's logs use the following command:
 kubectl logs -f [pod-name]
 ```
 
+### Describe Pod
+To view events and other details about the pod use:
+```
+kubectl describe pod [pod-name]
+```
+or
+```
+kubectl get pod [pod-name] -o yaml
+```
+or
+```
+kubectl get deployment [deployment-name] -o yaml
+```
+
+
+
